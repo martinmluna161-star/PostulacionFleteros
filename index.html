@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postulación de Transportistas | Transporte Arce Hnos.</title>
+  <style>
+    :root {
+      --primary: #0a2540;
+      --secondary: #d9381e;
+      --light-bg: #f4f6f9;
+      --dark-text: #2c3e50;
+      --border-color: #cbd5e1;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 30px;
+      text-align: center;
+      border-bottom: 5px solid var(--secondary);
+    }
+
+    .header h1 {
+      margin: 0 0 10px 0;
+      font-size: 26px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .header p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    form {
+      padding: 30px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 8px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #475569;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    input[type="file"] {
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus {
+      border-color: var(--primary);
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid var(--border-color);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .checkbox-item input {
+      margin-right: 8px;
+    }
+
+    .btn-submit {
+      background-color: var(--secondary);
+      color: #ffffff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 30px;
+      transition: background-color 0.2s;
+      text-transform: uppercase;
+    }
+
+    .btn-submit:hover {
+      background-color: #b82c16;
+    }
+
+    #loadingOverlay {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Transporte Arce Hnos. S.A.</h1>
+    <p>Incorporación de Transportistas — Operación YPF 2026</p>
+  </div>
+
+  <form id="transportistasForm">
+    <!-- 1. DATOS DE LA EMPRESA / PROVEEDOR -->
+    <div class="section-title">1. Datos de la Empresa / Proveedor</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="razonSocial">Razón Social / Nombre Completo *</label>
+        <input type="text" id="razonSocial" name="razonSocial" required>
+      </div>
+      <div class="form-group">
+        <label for="cuit">CUIT *</label>
+        <input type="text" id="cuit" name="cuit" placeholder="30-XXXXXXX-X" required>
+      </div>
+      <div class="form-group">
+        <label for="telefono">Teléfono de Contacto *</label>
+        <input type="tel" id="telefono" name="telefono" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Correo Electrónico *</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group full-width">
+        <label for="constanciaAfip">Constancia AFIP (Vigente 2026) [PDF] *</label>
+        <input type="file" id="constanciaAfip" name="constanciaAfip" accept=".pdf,.png,.jpg" required>
+      </div>
+      <div class="form-group full-width">
+        <label for="constanciaCbu">Constancia de CBU (Titular de la cuenta) [PDF] *</label>
+        <input type="file" id="constanciaCbu" name="constanciaCbu" accept=".pdf,.png,.jpg" required>
+      </div>
+    </div>
+
+    <!-- 2. DATOS DEL CHOFER -->
+    <div class="section-title">2. Documentación del Chofer</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="nombreChofer">Nombre y Apellido del Chofer *</label>
+        <input type="text" id="nombreChofer" name="nombreChofer" required>
+      </div>
+      <div class="form-group">
+        <label for="dniChofer">DNI *</label>
+        <input type="text" id="dniChofer" name="dniChofer" required>
+      </div>
+      <div class="form-group">
+        <label for="docDni">DNI (Frente y Dorso) [PDF/Imagen] *</label>
+        <input type="file" id="docDni" name="docDni" accept=".pdf,.png,.jpg" required>
+      </div>
+      <div class="form-group">
+        <label for="licenciaConducir">Licencia de Conducir (Vigente) [PDF/Imagen] *</label>
+        <input type="file" id="licenciaConducir" name="licenciaConducir" accept=".pdf,.png,.jpg" required>
+      </div>
+      <div class="form-group">
+        <label for="aptoMedico">Apto Médico Laboral (Módulo 4 YPF) [PDF] *</label>
+        <input type="file" id="aptoMedico" name="aptoMedico" accept=".pdf,.png,.jpg" required>
+      </div>
+      <div class="form-group">
+        <label for="manejoDefensivo">Certificado Manejo Defensivo [PDF] *</label>
+        <input type="file" id="manejoDefensivo" name="manejoDefensivo" accept=".pdf,.png,.jpg" required>
+      </div>
+    </div>
+
+    <!-- 3. DATOS DEL VEHÍCULO -->
+    <div class="section-title">3. Documentación del Vehículo y Unidad Tractora</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="dominio">Dominio / Patente *</label>
+        <input type="text" id="dominio" name="dominio" placeholder="AA123CD o ABC123" required>
+      </div>
+      <div class="form-group">
+        <label for="vtv">VTV / RTO (3 páginas completas) [PDF] *</label>
+        <input type="file" id="vtv" name="vtv" accept=".pdf,.png,.jpg" required>
+      </div>
+      <div class="form-group full-width">
+        <label for="poliza">Póliza de Seguro Automotor (Con cláusulas YPF) [PDF] *</label>
+        <input type="file" id="poliza" name="poliza" accept=".pdf,.png,.jpg" required>
+      </div>
+    </div>
+
+    <!-- 4. CHECKLIST TÉCNICO BATEAS / UNIDADES -->
+    <div class="section-title">4. Declaración de Cumplimiento Técnico (YPF)</div>
+    <p style="font-size: 13px; color: #64748b;">Marque los elementos con los que cuenta su unidad para la habilitación[cite: 1]:</p>
+    <div class="checkbox-grid">
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Recubrimiento antiadherente"> Recubrimiento antiadherente completo</div>
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Inclinometro"> Inclinómetro instalado</div>
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="2 Matafuegos 5kg"> 2 Matafuegos de 5 kg</div>
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Pala antichispa"> Pala anti-chispa (polipropileno)</div>
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Lanza de arrastre"> Lanza de arrastre</div>
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Sistema ADAS"> Sistema ADAS (Frenado/Colisión)</div>
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Seguimiento Satelital"> Monitoreo / Seguimiento Satelital GPS</div>
+      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="EPP Completo"> EPP Completo + Arnés doble cola (>1.8m)</div>
+    </div>
+
+    <button type="submit" class="btn-submit" id="btnEnviar">Enviar Postulación</button>
+    <div id="loadingOverlay">Procesando y subiendo archivos... Por favor no cierre la página.</div>
+  </form>
+</div>
+
+<script>
+  // Reemplazar con la URL desplegada de Google Apps Script Web App
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyHrA8pkpidVeMJLxaIqR2K7snGK1XfFCM3OasosWZRRvXLSX-p8CMV4FelSqB1yzMNAw/exec";
+
+  document.getElementById('transportistasForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const btn = document.getElementById('btnEnviar');
+    const loading = document.getElementById('loadingOverlay');
+    btn.disabled = true;
+    loading.style.display = 'block';
+
+    try {
+      const form = e.target;
+      const fileInputs = form.querySelectorAll('input[type="file"]');
+      const attachments = [];
+
+      // Lectura de archivos en formato Base64
+      for (const input of fileInputs) {
+        if (input.files.length > 0) {
+          const file = input.files[0];
+          const base64 = await convertBase64(file);
+          attachments.push({
+            fieldName: input.name,
+            fileName: file.name,
+            mimeType: file.type,
+            content: base64.split(',')[1] // Remueve el prefijo data:...
+          });
+        }
+      }
+
+      // Obtener checklist de requisitos técnicos
+      const reqs = Array.from(form.querySelectorAll('input[name="reqTecnico"]:checked')).map(cb => cb.value);
+
+      const payload = {
+        razonSocial: form.razonSocial.value,
+        cuit: form.cuit.value,
+        telefono: form.telefono.value,
+        email: form.email.value,
+        nombreChofer: form.nombreChofer.value,
+        dniChofer: form.dniChofer.value,
+        dominio: form.dominio.value,
+        requisitosTecnicos: reqs.join(', '),
+        attachments: attachments
+      };
+
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        alert('Postulación enviada con éxito. Revisaremos la documentación a la brevedad.');
+        form.reset();
+      } else {
+        alert('Ocurrió un error al procesar el formulario: ' + result.message);
+      }
+    } catch (error) {
+      alert('Error de conexión al enviar el formulario: ' + error.message);
+    } finally {
+      btn.disabled = false;
+      loading.style.display = 'none';
+    }
+  });
+
+  function convertBase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => resolve(fileReader.result);
+      fileReader.onerror = (error) => reject(error);
+    });
+  }
+</script>
+
+</body>
+</html>
