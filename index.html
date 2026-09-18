@@ -22,7 +22,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 0 auto;
       background: #ffffff;
       border-radius: 10px;
@@ -42,13 +42,6 @@
       margin: 0 0 10px 0;
       font-size: 26px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .header p {
-      margin: 0;
-      font-size: 14px;
-      opacity: 0.9;
     }
 
     form {
@@ -69,7 +62,7 @@
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      gap: 15px;
     }
 
     .form-group {
@@ -88,24 +81,68 @@
       color: #475569;
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    select,
-    input[type="file"] {
-      padding: 10px 12px;
+    input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, input[type="file"] {
+      padding: 10px;
       border: 1px solid var(--border-color);
       border-radius: 5px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
+      font-size: 13px;
     }
 
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="tel"]:focus,
-    select:focus {
-      border-color: var(--primary);
+    .dynamic-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary);
+      padding: 18px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .card-title {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-add {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .btn-remove {
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .sub-section {
+      background: #ffffff;
+      padding: 12px;
+      border: 1px dashed var(--border-color);
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .sub-title {
+      font-weight: bold;
+      font-size: 13px;
+      color: var(--secondary);
+      margin-bottom: 8px;
     }
 
     .checkbox-grid {
@@ -139,12 +176,7 @@
       cursor: pointer;
       width: 100%;
       margin-top: 30px;
-      transition: background-color 0.2s;
       text-transform: uppercase;
-    }
-
-    .btn-submit:hover {
-      background-color: #b82c16;
     }
 
     #loadingOverlay {
@@ -161,7 +193,7 @@
 <div class="container">
   <div class="header">
     <h1>Transporte Arce Hnos. S.A.</h1>
-    <p>Incorporación de Transportistas — Alta de Operaciones</p>
+    <p>Incorporación de Transportistas — Portal de Postulaciones</p>
   </div>
 
   <form id="transportistasForm">
@@ -181,81 +213,44 @@
     <div class="section-title">1. Datos de la Empresa / Proveedor</div>
     <div class="form-grid">
       <div class="form-group">
-        <label for="razonSocial">Razón Social / Nombre Completo *</label>
+        <label>Razón Social / Nombre Completo *</label>
         <input type="text" id="razonSocial" name="razonSocial" required>
       </div>
       <div class="form-group">
-        <label for="cuit">CUIT *</label>
+        <label>CUIT *</label>
         <input type="text" id="cuit" name="cuit" placeholder="30-XXXXXXX-X" required>
       </div>
       <div class="form-group">
-        <label for="telefono">Teléfono de Contacto *</label>
+        <label>Teléfono de Contacto *</label>
         <input type="tel" id="telefono" name="telefono" required>
       </div>
       <div class="form-group">
-        <label for="email">Correo Electrónico *</label>
+        <label>Correo Electrónico *</label>
         <input type="email" id="email" name="email" required>
       </div>
       <div class="form-group full-width">
-        <label for="constanciaAfip">Constancia AFIP (Vigente) [PDF] *</label>
+        <label>Constancia AFIP (Vigente) [PDF] *</label>
         <input type="file" id="constanciaAfip" name="constanciaAfip" accept=".pdf,.png,.jpg" required>
       </div>
       <div class="form-group full-width">
-        <label for="constanciaCbu">Constancia de CBU (Titular de la cuenta) [PDF] *</label>
+        <label>Constancia de CBU (Titular de la cuenta) [PDF] *</label>
         <input type="file" id="constanciaCbu" name="constanciaCbu" accept=".pdf,.png,.jpg" required>
       </div>
     </div>
 
-    <!-- 2. DATOS DEL CHOFER -->
-    <div class="section-title">2. Documentación del Chofer</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label for="nombreChofer">Nombre y Apellido del Chofer *</label>
-        <input type="text" id="nombreChofer" name="nombreChofer" required>
-      </div>
-      <div class="form-group">
-        <label for="dniChofer">DNI *</label>
-        <input type="text" id="dniChofer" name="dniChofer" required>
-      </div>
-      <div class="form-group">
-        <label for="docDni">DNI (Frente y Dorso) [PDF/Imagen] *</label>
-        <input type="file" id="docDni" name="docDni" accept=".pdf,.png,.jpg" required>
-      </div>
-      <div class="form-group">
-        <label for="licenciaConducir">Licencia de Conducir (Vigente) [PDF/Imagen] *</label>
-        <input type="file" id="licenciaConducir" name="licenciaConducir" accept=".pdf,.png,.jpg" required>
-      </div>
-      <div class="form-group">
-        <label for="aptoMedico">Apto Médico Laboral [PDF] *</label>
-        <input type="file" id="aptoMedico" name="aptoMedico" accept=".pdf,.png,.jpg" required>
-      </div>
-      <div class="form-group">
-        <label for="manejoDefensivo">Certificado Manejo Defensivo [PDF] *</label>
-        <input type="file" id="manejoDefensivo" name="manejoDefensivo" accept=".pdf,.png,.jpg" required>
-      </div>
-    </div>
+    <!-- 2. CHOFERES DINÁMICOS -->
+    <div class="section-title">2. Nómina de Choferes</div>
+    <div id="choferesContainer"></div>
+    <button type="button" class="btn-add" onclick="agregarChofer()">+ Agregar Otro Chofer</button>
 
-    <!-- 3. DATOS DEL VEHÍCULO -->
-    <div class="section-title">3. Documentación del Vehículo y Unidad</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label for="dominio">Dominio / Patente *</label>
-        <input type="text" id="dominio" name="dominio" placeholder="AA123CD o ABC123" required>
-      </div>
-      <div class="form-group">
-        <label for="vtv">VTV / RTO Vigente [PDF] *</label>
-        <input type="file" id="vtv" name="vtv" accept=".pdf,.png,.jpg" required>
-      </div>
-      <div class="form-group full-width">
-        <label for="poliza">Póliza de Seguro Automotor [PDF] *</label>
-        <input type="file" id="poliza" name="poliza" accept=".pdf,.png,.jpg" required>
-      </div>
-    </div>
+    <!-- 3. VEHÍCULOS DINÁMICOS (TRACTOR + SEMI) -->
+    <div class="section-title">3. Unidades y Equipos (Tractor y Semirremolque)</div>
+    <div id="vehiculosContainer"></div>
+    <button type="button" class="btn-add" onclick="agregarVehiculo()">+ Agregar Otro Par (Tractor + Semi)</button>
 
     <!-- 4. CHECKLIST TÉCNICO YPF -->
     <div id="sectionYpfTecnico">
-      <div class="section-title">4. Declaración de Cumplimiento Técnico (Operación YPF)</div>
-      <p style="font-size: 13px; color: #64748b;">Marque los elementos con los que cuenta su unidad[cite: 1]:</p>
+      <div class="section-title">4. Declaración Técnico-Operativa (Operación YPF)</div>
       <div class="checkbox-grid">
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Recubrimiento antiadherente"> Recubrimiento antiadherente completo</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Inclinometro"> Inclinómetro instalado</div>
@@ -270,8 +265,7 @@
 
     <!-- 4. CHECKLIST TÉCNICO CAÑOS / TENARIS -->
     <div id="sectionCanosTecnico" style="display: none;">
-      <div class="section-title">4. Declaración de Cumplimiento Técnico (Operación Caños / Tenaris)</div>
-      <p style="font-size: 13px; color: #64748b;">Marque las especificaciones de su unidad[cite: 2]:</p>
+      <div class="section-title">4. Declaración Técnico-Operativa (Operación Caños / Tenaris)</div>
       <div class="checkbox-grid">
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Semirremolque Escalable"> Semirremolque Escalable (Apto 32.5 Tn)</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="5 Estacas laterales"> 5 Estacas laterales de seguridad (PRD 1737)</div>
@@ -280,30 +274,143 @@
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Lona vinilica impermeable"> Lona vinílica impermeable</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Sin cubiertas recapadas"> Sin cubiertas recapadas en dirección/tracción</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Monitoreo Satelital Active"> Monitoreo Satelital GPS Activo</div>
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Parapeto reforzado"> Parapeto/Antepecho a la altura de la cabina</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Parapeto reinforced"> Parapeto/Antepecho a la altura de la cabina</div>
       </div>
     </div>
 
-    <button type="submit" class="btn-submit" id="btnEnviar">Enviar Postulación</button>
-    <div id="loadingOverlay">Procesando y subiendo archivos... Por favor no cierre la página.</div>
+    <button type="submit" class="btn-submit" id="btnEnviar">Enviar Postulación Completa</button>
+    <div id="loadingOverlay">Subiendo documentación y procesando postulación... Por favor espere.</div>
   </form>
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0uKiXkC4Bzk5NaVzl0aw4LgDFQcmKg16RqqT_FT8b0qma1ylm_ZQv5bcyDKi0AF8jiw/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhgS6W9OrnEaW9HQVbFln9w-FADu7BqooJyEm8YXKtZdPclS0s1j07jm08_5nZbUbf/exec";
+  let choferCount = 0;
+  let vehiculoCount = 0;
 
   function cambiarOperacion(valor) {
-    const sectionYpf = document.getElementById('sectionYpfTecnico');
-    const sectionCanos = document.getElementById('sectionCanosTecnico');
-    
-    if (valor === 'CANOS') {
-      sectionYpf.style.display = 'none';
-      sectionCanos.style.display = 'block';
-    } else {
-      sectionYpf.style.display = 'block';
-      sectionCanos.style.display = 'none';
-    }
+    document.getElementById('sectionYpfTecnico').style.display = (valor === 'CANOS') ? 'none' : 'block';
+    document.getElementById('sectionCanosTecnico').style.display = (valor === 'CANOS') ? 'block' : 'none';
   }
+
+  function agregarChofer() {
+    choferCount++;
+    const container = document.getElementById('choferesContainer');
+    const div = document.createElement('div');
+    div.className = 'dynamic-card';
+    div.id = `choferCard_${choferCount}`;
+    div.innerHTML = `
+      <div class="card-title">
+        <span>Chofer #${choferCount}</span>
+        ${choferCount > 1 ? `<button type="button" class="btn-remove" onclick="eliminarCard('choferCard_${choferCount}')">Eliminar</button>` : ''}
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nombre y Apellido *</label>
+          <input type="text" class="chofer-nombre" required>
+        </div>
+        <div class="form-group">
+          <label>DNI *</label>
+          <input type="text" class="chofer-dni" required>
+        </div>
+        <div class="form-group">
+          <label>DNI (Frente y Dorso) [PDF/Imagen] *</label>
+          <input type="file" class="chofer-file-dni" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group">
+          <label>Licencia de Conducir Vigente [PDF/Imagen] *</label>
+          <input type="file" class="chofer-file-licencia" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group">
+          <label>Apto Médico Laboral [PDF] *</label>
+          <input type="file" class="chofer-file-apto" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group">
+          <label>Certificado Manejo Defensivo [PDF] *</label>
+          <input type="file" class="chofer-file-defensivo" accept=".pdf,.png,.jpg" required>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+
+  function agregarVehiculo() {
+    vehiculoCount++;
+    const container = document.getElementById('vehiculosContainer');
+    const div = document.createElement('div');
+    div.className = 'dynamic-card';
+    div.id = `vehiculoCard_${vehiculoCount}`;
+    div.innerHTML = `
+      <div class="card-title">
+        <span>Conjunto de Transporte #${vehiculoCount}</span>
+        ${vehiculoCount > 1 ? `<button type="button" class="btn-remove" onclick="eliminarCard('vehiculoCard_${vehiculoCount}')">Eliminar</button>` : ''}
+      </div>
+      
+      <!-- TRACTOR -->
+      <div class="sub-section">
+        <div class="sub-title">Unidad Tractora (Tractor)</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Dominio / Patente Tractor *</label>
+            <input type="text" class="tractor-patente" placeholder="AA123CD" required>
+          </div>
+          <div class="form-group">
+            <label>Fecha Vencimiento VTV/RTO (Tractor) *</label>
+            <input type="date" class="tractor-venc-vtv" required>
+          </div>
+          <div class="form-group">
+            <label>Tarjeta / Cédula Verde (Tractor) [PDF/Imagen] *</label>
+            <input type="file" class="tractor-file-cedula" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group">
+            <label>VTV / RTO Vigente (Tractor) [PDF] *</label>
+            <input type="file" class="tractor-file-vtv" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Póliza y Cláusulas Seguro (Tractor) [PDF] *</label>
+            <input type="file" class="tractor-file-seguro" accept=".pdf,.png,.jpg" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMIRREMOLQUE -->
+      <div class="sub-section">
+        <div class="sub-title">Semirremolque / Batea</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Dominio / Patente Semi *</label>
+            <input type="text" class="semi-patente" placeholder="AA123EF" required>
+          </div>
+          <div class="form-group">
+            <label>Fecha Vencimiento VTV/RTO (Semi) *</label>
+            <input type="date" class="semi-venc-vtv" required>
+          </div>
+          <div class="form-group">
+            <label>Tarjeta / Cédula Verde (Semi) [PDF/Imagen] *</label>
+            <input type="file" class="semi-file-cedula" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group">
+            <label>VTV / RTO Vigente (Semi) [PDF] *</label>
+            <input type="file" class="semi-file-vtv" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Póliza y Cláusulas Seguro (Semi) [PDF] *</label>
+            <input type="file" class="semi-file-seguro" accept=".pdf,.png,.jpg" required>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+
+  function eliminarCard(id) {
+    document.getElementById(id).remove();
+  }
+
+  window.onload = function() {
+    agregarChofer();
+    agregarVehiculo();
+  };
 
   document.getElementById('transportistasForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -315,22 +422,58 @@
 
     try {
       const form = e.target;
-      const fileInputs = form.querySelectorAll('input[type="file"]');
       const attachments = [];
 
-      for (const input of fileInputs) {
-        if (input.files.length > 0) {
-          const file = input.files[0];
-          const base64 = await convertBase64(file);
-          attachments.push({
-            fieldName: input.name,
-            fileName: file.name,
-            mimeType: file.type,
-            content: base64.split(',')[1]
-          });
-        }
+      // 1. Adjuntos Empresa
+      await processFileInput(form.constanciaAfip, 'empresa_afip', 'empresa', attachments);
+      await processFileInput(form.constanciaCbu, 'empresa_cbu', 'empresa', attachments);
+
+      // 2. Procesar Choferes
+      const choferCards = document.querySelectorAll('#choferesContainer .dynamic-card');
+      const choferesData = [];
+
+      for (let i = 0; i < choferCards.length; i++) {
+        const card = choferCards[i];
+        const idx = i + 1;
+        
+        const nombre = card.querySelector('.chofer-nombre').value;
+        const dni = card.querySelector('.chofer-dni').value;
+        
+        choferesData.push({ nombre, dni });
+
+        await processFileInput(card.querySelector('.chofer-file-dni'), `chofer_dni_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-licencia'), `chofer_licencia_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-apto'), `chofer_apto_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-defensivo'), `chofer_defensivo_${idx}`, 'chofer', attachments);
       }
 
+      // 3. Procesar Vehículos (Tractor + Semi)
+      const vehiculoCards = document.querySelectorAll('#vehiculosContainer .dynamic-card');
+      const vehiculosData = [];
+
+      for (let i = 0; i < vehiculoCards.length; i++) {
+        const card = vehiculoCards[i];
+        const idx = i + 1;
+
+        const patenteTractor = card.querySelector('.tractor-patente').value;
+        const vencVtvTractor = card.querySelector('.tractor-venc-vtv').value;
+        const patenteSemi = card.querySelector('.semi-patente').value;
+        const vencVtvSemi = card.querySelector('.semi-venc-vtv').value;
+
+        vehiculosData.push({ patenteTractor, vencVtvTractor, patenteSemi, vencVtvSemi });
+
+        // Archivos Tractor
+        await processFileInput(card.querySelector('.tractor-file-cedula'), `tractor_cedula_${idx}`, 'vehiculo', attachments);
+        await processFileInput(card.querySelector('.tractor-file-vtv'), `tractor_vtv_${idx}`, 'vehiculo', attachments);
+        await processFileInput(card.querySelector('.tractor-file-seguro'), `tractor_seguro_${idx}`, 'vehiculo', attachments);
+
+        // Archivos Semi
+        await processFileInput(card.querySelector('.semi-file-cedula'), `semi_cedula_${idx}`, 'vehiculo', attachments);
+        await processFileInput(card.querySelector('.semi-file-vtv'), `semi_vtv_${idx}`, 'vehiculo', attachments);
+        await processFileInput(card.querySelector('.semi-file-seguro'), `semi_seguro_${idx}`, 'vehiculo', attachments);
+      }
+
+      // Requisitos Técnicos
       const operacionSel = form.operacion.value;
       const selectorCheckboxes = (operacionSel === 'CANOS') ? 'input[name="reqTecnicoCanos"]:checked' : 'input[name="reqTecnicoYpf"]:checked';
       const reqs = Array.from(form.querySelectorAll(selectorCheckboxes)).map(cb => cb.value);
@@ -341,9 +484,8 @@
         cuit: form.cuit.value,
         telefono: form.telefono.value,
         email: form.email.value,
-        nombreChofer: form.nombreChofer.value,
-        dniChofer: form.dniChofer.value,
-        dominio: form.dominio.value,
+        choferes: choferesData,
+        vehiculos: vehiculosData,
         requisitosTecnicos: reqs.join(', '),
         attachments: attachments
       };
@@ -356,19 +498,32 @@
       const result = await response.json();
 
       if (result.status === 'success') {
-        alert('Postulación enviada con éxito. Revisaremos la documentación a la brevedad.');
-        form.reset();
-        cambiarOperacion('YPF');
+        alert('Postulación registrada con éxito. Cada unidad y chofer fueron guardados en filas independientes.');
+        location.reload();
       } else {
-        alert('Ocurrió un error al procesar el formulario: ' + result.message);
+        alert('Error al enviar la postulación: ' + result.message);
       }
     } catch (error) {
-      alert('Error de conexión al enviar el formulario: ' + error.message);
+      alert('Error de conexión o lectura de archivos: ' + error.message);
     } finally {
       btn.disabled = false;
       loading.style.display = 'none';
     }
   });
+
+  async function processFileInput(inputElement, fieldName, category, attachmentsArray) {
+    if (inputElement && inputElement.files.length > 0) {
+      const file = inputElement.files[0];
+      const base64 = await convertBase64(file);
+      attachmentsArray.push({
+        fieldName: fieldName,
+        category: category,
+        fileName: `${fieldName}_${file.name}`,
+        mimeType: file.type,
+        content: base64.split(',')[1]
+      });
+    }
+  }
 
   function convertBase64(file) {
     return new Promise((resolve, reject) => {
