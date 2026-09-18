@@ -38,15 +38,8 @@
       border-bottom: 5px solid var(--secondary);
     }
 
-    .header h1 {
-      margin: 0 0 10px 0;
-      font-size: 26px;
-      text-transform: uppercase;
-    }
-
-    form {
-      padding: 30px;
-    }
+    .header h1 { margin: 0 0 10px 0; font-size: 26px; text-transform: uppercase; }
+    form { padding: 30px; }
 
     .section-title {
       font-size: 18px;
@@ -65,21 +58,10 @@
       gap: 15px;
     }
 
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group.full-width { grid-column: 1 / -1; }
 
-    .form-group.full-width {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: #475569;
-    }
+    label { font-weight: 600; font-size: 13px; margin-bottom: 6px; color: #475569; }
 
     input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, input[type="file"] {
       padding: 10px;
@@ -95,7 +77,6 @@
       padding: 18px;
       border-radius: 6px;
       margin-bottom: 15px;
-      position: relative;
     }
 
     .card-title {
@@ -105,7 +86,6 @@
       font-size: 15px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
     }
 
     .btn-add {
@@ -138,12 +118,7 @@
       margin-top: 10px;
     }
 
-    .sub-title {
-      font-weight: bold;
-      font-size: 13px;
-      color: var(--secondary);
-      margin-bottom: 8px;
-    }
+    .sub-title { font-weight: bold; font-size: 13px; color: var(--secondary); margin-bottom: 8px; }
 
     .checkbox-grid {
       display: grid;
@@ -155,15 +130,8 @@
       border: 1px solid var(--border-color);
     }
 
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      font-size: 13px;
-    }
-
-    .checkbox-item input {
-      margin-right: 8px;
-    }
+    .checkbox-item { display: flex; align-items: center; font-size: 13px; }
+    .checkbox-item input { margin-right: 8px; }
 
     .btn-submit {
       background-color: var(--secondary);
@@ -179,13 +147,7 @@
       text-transform: uppercase;
     }
 
-    #loadingOverlay {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      font-weight: bold;
-      color: var(--primary);
-    }
+    #loadingOverlay { display: none; text-align: center; padding: 20px; font-weight: bold; color: var(--primary); }
   </style>
 </head>
 <body>
@@ -193,7 +155,7 @@
 <div class="container">
   <div class="header">
     <h1>Transporte Arce Hnos. S.A.</h1>
-    <p>Incorporación de Transportistas — Portal de Postulaciones</p>
+    <p>Incorporación de Transportistas — Requisitos YPF 2026 / Tenaris</p>
   </div>
 
   <form id="transportistasForm">
@@ -229,37 +191,54 @@
         <input type="email" id="email" name="email" required>
       </div>
       <div class="form-group full-width">
-        <label>Constancia AFIP (Vigente) [PDF] *</label>
+        <label>Exclusiones Impositivas (Ganancias / IIBB / IVA / SUSS)</label>
+        <input type="text" id="exclusiones" name="exclusiones" placeholder="Indicar si posee exclusiones o poner 'Ninguna'">
+      </div>
+      <div class="form-group">
+        <label>Constancia AFIP (Vigente 2026) [PDF] *</label>
         <input type="file" id="constanciaAfip" name="constanciaAfip" accept=".pdf,.png,.jpg" required>
       </div>
-      <div class="form-group full-width">
-        <label>Constancia de CBU (Titular de la cuenta) [PDF] *</label>
+      <div class="form-group">
+        <label>Ingresos Brutos (IIBB) (Local/CM01+CM05) [PDF] *</label>
+        <input type="file" id="constanciaIibb" name="constanciaIibb" accept=".pdf,.png,.jpg" required>
+      </div>
+      <div class="form-group">
+        <label>Constancia CBU (Titular sin cotitular Físico) [PDF] *</label>
         <input type="file" id="constanciaCbu" name="constanciaCbu" accept=".pdf,.png,.jpg" required>
+      </div>
+      <div class="form-group">
+        <label>Formulario F1276 (Solo si factura en Sta Fe y es CM) [PDF]</label>
+        <input type="file" id="formF1276" name="formF1276" accept=".pdf,.png,.jpg">
       </div>
     </div>
 
     <!-- 2. CHOFERES DINÁMICOS -->
-    <div class="section-title">2. Nómina de Choferes</div>
+    <div class="section-title">2. Documentación de Choferes</div>
     <div id="choferesContainer"></div>
     <button type="button" class="btn-add" onclick="agregarChofer()">+ Agregar Otro Chofer</button>
 
     <!-- 3. VEHÍCULOS DINÁMICOS (TRACTOR + SEMI) -->
-    <div class="section-title">3. Unidades y Equipos (Tractor y Semirremolque)</div>
+    <div class="section-title">3. Documentación de Unidades (Tractor y Semi / Batea)</div>
     <div id="vehiculosContainer"></div>
     <button type="button" class="btn-add" onclick="agregarVehiculo()">+ Agregar Otro Par (Tractor + Semi)</button>
 
     <!-- 4. CHECKLIST TÉCNICO YPF -->
     <div id="sectionYpfTecnico">
-      <div class="section-title">4. Declaración Técnico-Operativa (Operación YPF)</div>
+      <div class="section-title">4. Requisitos Técnicos y de Ingreso (Operación YPF)</div>
       <div class="checkbox-grid">
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Recubrimiento antiadherente"> Recubrimiento antiadherente completo</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Recubrimiento antiadherente"> Recubrimiento antiadherente batea</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Lona estado optimo"> Lona en buen estado</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Inclinometro"> Inclinómetro instalado</div>
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="2 Matafuegos 5kg"> 2 Matafuegos de 5 kg</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="2 Matafuegos 5kg"> 2 Matafuegos 5 kg (Batea)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="1 Matafuego 2.5kg"> Matafuego 2.5 kg (Tractor)</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Pala antichispa"> Pala anti-chispa (polipropileno)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Balde de arena"> Balde de arena</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Lanza de arrastre"> Lanza de arrastre</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Conos refractarios"> Conos refractarios (70-80cm)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Calzas de goma"> 2 Calzas de seguridad de goma</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Sistema ADAS"> Sistema ADAS (Frenado/Colisión)</div>
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Seguimiento Satelital"> Monitoreo / Seguimiento Satelital GPS</div>
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="EPP Completo"> EPP Completo + Arnés doble cola (>1.8m)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Seguimiento Satelital"> Seguimiento Satelital GPS</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="EPP + Arnes"> EPP + Arnés doble cola (>1.8m)</div>
       </div>
     </div>
 
@@ -270,11 +249,11 @@
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Semirremolque Escalable"> Semirremolque Escalable (Apto 32.5 Tn)</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="5 Estacas laterales"> 5 Estacas laterales de seguridad (PRD 1737)</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="4 Palones de madera"> 4 Palones de madera (150x150 mm)</div>
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Fajas adicionales"> Fajas de amarre reglamentarias + 2 extras</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Fajas adicionales"> Fajas de amarre + 2 extras</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Lona vinilica impermeable"> Lona vinílica impermeable</div>
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Sin cubiertas recapadas"> Sin cubiertas recapadas en dirección/tracción</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Sin cubiertas recapadas"> Sin cubiertas recapadas (Dirección/Tracción)</div>
         <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Monitoreo Satelital Active"> Monitoreo Satelital GPS Activo</div>
-        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Parapeto reinforced"> Parapeto/Antepecho a la altura de la cabina</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Parapeto reforzado"> Parapeto/Antepecho a altura de cabina</div>
       </div>
     </div>
 
@@ -284,7 +263,7 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhgS6W9OrnEaW9HQVbFln9w-FADu7BqooJyEm8YXKtZdPclS0s1j07jm08_5nZbUbf/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwTyIsWGKsN5YlX0GH8s8znz1EnaW6mom0IEIjwtgTugl4rYzkDbq10Vhp99SuPbioIqg/exec";
   let choferCount = 0;
   let vehiculoCount = 0;
 
@@ -322,12 +301,32 @@
           <input type="file" class="chofer-file-licencia" accept=".pdf,.png,.jpg" required>
         </div>
         <div class="form-group">
-          <label>Apto Médico Laboral [PDF] *</label>
+          <label>Alta AFIP (Firmada por el chofer) [PDF] *</label>
+          <input type="file" class="chofer-file-alta-afip" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group">
+          <label>Seguro de Vida Obligatorio [PDF] *</label>
+          <input type="file" class="chofer-file-seguro-vida" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group">
+          <label>ART (Con cláusula No Repetición YPF) [PDF] *</label>
+          <input type="file" class="chofer-file-art" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group">
+          <label>Apto Médico Laboral (Módulo 4 YPF) [PDF] *</label>
           <input type="file" class="chofer-file-apto" accept=".pdf,.png,.jpg" required>
         </div>
         <div class="form-group">
           <label>Certificado Manejo Defensivo [PDF] *</label>
           <input type="file" class="chofer-file-defensivo" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group">
+          <label>Constancia Entrega EPP [PDF] *</label>
+          <input type="file" class="chofer-file-epp" accept=".pdf,.png,.jpg" required>
+        </div>
+        <div class="form-group full-width">
+          <label>Registro Mi Simplificación / RRLL (Captura ARCA con fecha) [PDF/Imagen] *</label>
+          <input type="file" class="chofer-file-arca" accept=".pdf,.png,.jpg" required>
         </div>
       </div>
     `;
@@ -355,19 +354,27 @@
             <input type="text" class="tractor-patente" placeholder="AA123CD" required>
           </div>
           <div class="form-group">
-            <label>Fecha Vencimiento VTV/RTO (Tractor) *</label>
+            <label>Fecha Vencimiento VTV/RTO Tractor *</label>
             <input type="date" class="tractor-venc-vtv" required>
           </div>
           <div class="form-group">
-            <label>Tarjeta / Cédula Verde (Tractor) [PDF/Imagen] *</label>
+            <label>Título o Contrato Alquiler (Tractor) [PDF] *</label>
+            <input type="file" class="tractor-file-titulo" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group">
+            <label>Cédula Verde (Tractor) [PDF/Imagen] *</label>
             <input type="file" class="tractor-file-cedula" accept=".pdf,.png,.jpg" required>
           </div>
           <div class="form-group">
-            <label>VTV / RTO Vigente (Tractor) [PDF] *</label>
+            <label>Libre Deuda / Cupon Pago Póliza (Tractor) [PDF] *</label>
+            <input type="file" class="tractor-file-libre-deuda" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group">
+            <label>VTV Vigente (3 págs completas - Tractor) [PDF] *</label>
             <input type="file" class="tractor-file-vtv" accept=".pdf,.png,.jpg" required>
           </div>
           <div class="form-group full-width">
-            <label>Póliza y Cláusulas Seguro (Tractor) [PDF] *</label>
+            <label>Póliza Seguro Automotor (Con Cláusulas YPF) [PDF] *</label>
             <input type="file" class="tractor-file-seguro" accept=".pdf,.png,.jpg" required>
           </div>
         </div>
@@ -382,19 +389,27 @@
             <input type="text" class="semi-patente" placeholder="AA123EF" required>
           </div>
           <div class="form-group">
-            <label>Fecha Vencimiento VTV/RTO (Semi) *</label>
+            <label>Fecha Vencimiento VTV/RTO Semi *</label>
             <input type="date" class="semi-venc-vtv" required>
           </div>
           <div class="form-group">
-            <label>Tarjeta / Cédula Verde (Semi) [PDF/Imagen] *</label>
+            <label>Título o Contrato Alquiler (Semi) [PDF] *</label>
+            <input type="file" class="semi-file-titulo" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group">
+            <label>Cédula Verde (Semi) [PDF/Imagen] *</label>
             <input type="file" class="semi-file-cedula" accept=".pdf,.png,.jpg" required>
           </div>
           <div class="form-group">
-            <label>VTV / RTO Vigente (Semi) [PDF] *</label>
+            <label>Libre Deuda / Cupon Pago Póliza (Semi) [PDF] *</label>
+            <input type="file" class="semi-file-libre-deuda" accept=".pdf,.png,.jpg" required>
+          </div>
+          <div class="form-group">
+            <label>VTV Vigente (3 págs completas - Semi) [PDF] *</label>
             <input type="file" class="semi-file-vtv" accept=".pdf,.png,.jpg" required>
           </div>
           <div class="form-group full-width">
-            <label>Póliza y Cláusulas Seguro (Semi) [PDF] *</label>
+            <label>Póliza Seguro Automotor (Con Cláusulas YPF) [PDF] *</label>
             <input type="file" class="semi-file-seguro" accept=".pdf,.png,.jpg" required>
           </div>
         </div>
@@ -403,9 +418,7 @@
     container.appendChild(div);
   }
 
-  function eliminarCard(id) {
-    document.getElementById(id).remove();
-  }
+  function eliminarCard(id) { document.getElementById(id).remove(); }
 
   window.onload = function() {
     agregarChofer();
@@ -426,7 +439,9 @@
 
       // 1. Adjuntos Empresa
       await processFileInput(form.constanciaAfip, 'empresa_afip', 'empresa', attachments);
+      await processFileInput(form.constanciaIibb, 'empresa_iibb', 'empresa', attachments);
       await processFileInput(form.constanciaCbu, 'empresa_cbu', 'empresa', attachments);
+      await processFileInput(form.formF1276, 'empresa_f1276', 'empresa', attachments);
 
       // 2. Procesar Choferes
       const choferCards = document.querySelectorAll('#choferesContainer .dynamic-card');
@@ -436,18 +451,23 @@
         const card = choferCards[i];
         const idx = i + 1;
         
-        const nombre = card.querySelector('.chofer-nombre').value;
-        const dni = card.querySelector('.chofer-dni').value;
-        
-        choferesData.push({ nombre, dni });
+        choferesData.push({
+          nombre: card.querySelector('.chofer-nombre').value,
+          dni: card.querySelector('.chofer-dni').value
+        });
 
         await processFileInput(card.querySelector('.chofer-file-dni'), `chofer_dni_${idx}`, 'chofer', attachments);
         await processFileInput(card.querySelector('.chofer-file-licencia'), `chofer_licencia_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-alta-afip'), `chofer_alta_afip_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-seguro-vida'), `chofer_seguro_vida_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-art'), `chofer_art_${idx}`, 'chofer', attachments);
         await processFileInput(card.querySelector('.chofer-file-apto'), `chofer_apto_${idx}`, 'chofer', attachments);
         await processFileInput(card.querySelector('.chofer-file-defensivo'), `chofer_defensivo_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-epp'), `chofer_epp_${idx}`, 'chofer', attachments);
+        await processFileInput(card.querySelector('.chofer-file-arca'), `chofer_arca_${idx}`, 'chofer', attachments);
       }
 
-      // 3. Procesar Vehículos (Tractor + Semi)
+      // 3. Procesar Vehículos
       const vehiculoCards = document.querySelectorAll('#vehiculosContainer .dynamic-card');
       const vehiculosData = [];
 
@@ -455,25 +475,28 @@
         const card = vehiculoCards[i];
         const idx = i + 1;
 
-        const patenteTractor = card.querySelector('.tractor-patente').value;
-        const vencVtvTractor = card.querySelector('.tractor-venc-vtv').value;
-        const patenteSemi = card.querySelector('.semi-patente').value;
-        const vencVtvSemi = card.querySelector('.semi-venc-vtv').value;
+        vehiculosData.push({
+          patenteTractor: card.querySelector('.tractor-patente').value,
+          vencVtvTractor: card.querySelector('.tractor-venc-vtv').value,
+          patenteSemi: card.querySelector('.semi-patente').value,
+          vencVtvSemi: card.querySelector('.semi-venc-vtv').value
+        });
 
-        vehiculosData.push({ patenteTractor, vencVtvTractor, patenteSemi, vencVtvSemi });
-
-        // Archivos Tractor
+        // Tractor
+        await processFileInput(card.querySelector('.tractor-file-titulo'), `tractor_titulo_${idx}`, 'vehiculo', attachments);
         await processFileInput(card.querySelector('.tractor-file-cedula'), `tractor_cedula_${idx}`, 'vehiculo', attachments);
+        await processFileInput(card.querySelector('.tractor-file-libre-deuda'), `tractor_libre_deuda_${idx}`, 'vehiculo', attachments);
         await processFileInput(card.querySelector('.tractor-file-vtv'), `tractor_vtv_${idx}`, 'vehiculo', attachments);
         await processFileInput(card.querySelector('.tractor-file-seguro'), `tractor_seguro_${idx}`, 'vehiculo', attachments);
 
-        // Archivos Semi
+        // Semi
+        await processFileInput(card.querySelector('.semi-file-titulo'), `semi_titulo_${idx}`, 'vehiculo', attachments);
         await processFileInput(card.querySelector('.semi-file-cedula'), `semi_cedula_${idx}`, 'vehiculo', attachments);
+        await processFileInput(card.querySelector('.semi-file-libre-deuda'), `semi_libre_deuda_${idx}`, 'vehiculo', attachments);
         await processFileInput(card.querySelector('.semi-file-vtv'), `semi_vtv_${idx}`, 'vehiculo', attachments);
         await processFileInput(card.querySelector('.semi-file-seguro'), `semi_seguro_${idx}`, 'vehiculo', attachments);
       }
 
-      // Requisitos Técnicos
       const operacionSel = form.operacion.value;
       const selectorCheckboxes = (operacionSel === 'CANOS') ? 'input[name="reqTecnicoCanos"]:checked' : 'input[name="reqTecnicoYpf"]:checked';
       const reqs = Array.from(form.querySelectorAll(selectorCheckboxes)).map(cb => cb.value);
@@ -484,6 +507,7 @@
         cuit: form.cuit.value,
         telefono: form.telefono.value,
         email: form.email.value,
+        exclusiones: form.exclusiones.value,
         choferes: choferesData,
         vehiculos: vehiculosData,
         requisitosTecnicos: reqs.join(', '),
@@ -498,7 +522,7 @@
       const result = await response.json();
 
       if (result.status === 'success') {
-        alert('Postulación registrada con éxito. Cada unidad y chofer fueron guardados en filas independientes.');
+        alert('Postulación registrada con éxito.');
         location.reload();
       } else {
         alert('Error al enviar la postulación: ' + result.message);
