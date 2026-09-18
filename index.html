@@ -191,7 +191,7 @@
         <input type="email" id="email" name="email" required>
       </div>
       <div class="form-group">
-        <label>Empresa de Servicio Satelital *</label>
+        <label>Empresa Satelital *</label>
         <input type="text" id="empresaSatelital" name="empresaSatelital" placeholder="Ej: Pointer, Satellites, etc." required>
       </div>
       <div class="form-group">
@@ -287,7 +287,7 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCp-Cz4u7wgFWOsjiZY9SyAnUKgykmAhv0_7p5-nbQyymjAfeShVFIHCGKAt3CYkULsA/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbgagnqpjz6nphu7A65KZaQ0qbrGVoWPCKfrE6sufUSOJsyTVxd1UtqbaDJU8p1LpjlA/exec";
   let choferCount = 0;
   let vehiculoCount = 0;
 
@@ -309,6 +309,7 @@
     document.querySelectorAll('.chofer-field-canos').forEach(el => el.style.display = isCanos ? 'block' : 'none');
     
     document.querySelectorAll('.chofer-file-seguro-vida').forEach(el => el.required = !isCanos);
+    document.querySelectorAll('.chofer-file-defensivo').forEach(el => el.required = !isCanos);
     document.querySelectorAll('.chofer-file-epp').forEach(el => el.required = !isCanos);
     document.querySelectorAll('.chofer-file-arca').forEach(el => el.required = !isCanos);
 
@@ -366,14 +367,14 @@
           <input type="file" class="chofer-file-apto" accept=".pdf,.png,.jpg" required>
         </div>
 
-        <!-- YPF ESPECIFICO -->
+        <!-- EXCLUSIVO YPF -->
         <div class="form-group chofer-field-ypf" style="${isCanos ? 'display:none;' : ''}">
           <label>Seguro de Vida Obligatorio [PDF] *</label>
           <input type="file" class="chofer-file-seguro-vida" accept=".pdf,.png,.jpg" ${isCanos ? '' : 'required'}>
         </div>
         <div class="form-group chofer-field-ypf" style="${isCanos ? 'display:none;' : ''}">
           <label>Certificado Manejo Defensivo YPF [PDF] *</label>
-          <input type="file" class="chofer-file-defensivo" accept=".pdf,.png,.jpg">
+          <input type="file" class="chofer-file-defensivo" accept=".pdf,.png,.jpg" ${isCanos ? '' : 'required'}>
         </div>
         <div class="form-group chofer-field-ypf" style="${isCanos ? 'display:none;' : ''}">
           <label>Constancia Entrega EPP [PDF] *</label>
@@ -384,7 +385,7 @@
           <input type="file" class="chofer-file-arca" accept=".pdf,.png,.jpg" ${isCanos ? '' : 'required'}>
         </div>
 
-        <!-- TENARIS ESPECIFICO -->
+        <!-- EXCLUSIVO TENARIS -->
         <div class="form-group full-width chofer-field-canos" style="${isCanos ? '' : 'display:none;'}">
           <label>Examen de Suficiencia para Material Tubular (Tenaris) [PDF] *</label>
           <input type="file" class="chofer-file-examen-tubos" accept=".pdf,.png,.jpg">
