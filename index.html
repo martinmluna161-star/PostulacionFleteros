@@ -161,10 +161,22 @@
 <div class="container">
   <div class="header">
     <h1>Transporte Arce Hnos. S.A.</h1>
-    <p>Incorporación de Transportistas — Operación YPF 2026</p>
+    <p>Incorporación de Transportistas — Alta de Operaciones</p>
   </div>
 
   <form id="transportistasForm">
+    <!-- SELECCIÓN DE OPERACIÓN -->
+    <div class="section-title">Operación Destino</div>
+    <div class="form-grid">
+      <div class="form-group full-width">
+        <label for="operacion">Seleccione la operación a la que desea postularse *</label>
+        <select id="operacion" name="operacion" required onchange="cambiarOperacion(this.value)">
+          <option value="YPF">Operación YPF (Granel / Bateas / Yacimientos)</option>
+          <option value="CANOS">Operación Caños / Tenaris (Siderurgia / Tuberías)</option>
+        </select>
+      </div>
+    </div>
+
     <!-- 1. DATOS DE LA EMPRESA / PROVEEDOR -->
     <div class="section-title">1. Datos de la Empresa / Proveedor</div>
     <div class="form-grid">
@@ -185,7 +197,7 @@
         <input type="email" id="email" name="email" required>
       </div>
       <div class="form-group full-width">
-        <label for="constanciaAfip">Constancia AFIP (Vigente 2026) [PDF] *</label>
+        <label for="constanciaAfip">Constancia AFIP (Vigente) [PDF] *</label>
         <input type="file" id="constanciaAfip" name="constanciaAfip" accept=".pdf,.png,.jpg" required>
       </div>
       <div class="form-group full-width">
@@ -214,7 +226,7 @@
         <input type="file" id="licenciaConducir" name="licenciaConducir" accept=".pdf,.png,.jpg" required>
       </div>
       <div class="form-group">
-        <label for="aptoMedico">Apto Médico Laboral (Módulo 4 YPF) [PDF] *</label>
+        <label for="aptoMedico">Apto Médico Laboral [PDF] *</label>
         <input type="file" id="aptoMedico" name="aptoMedico" accept=".pdf,.png,.jpg" required>
       </div>
       <div class="form-group">
@@ -224,34 +236,52 @@
     </div>
 
     <!-- 3. DATOS DEL VEHÍCULO -->
-    <div class="section-title">3. Documentación del Vehículo y Unidad Tractora</div>
+    <div class="section-title">3. Documentación del Vehículo y Unidad</div>
     <div class="form-grid">
       <div class="form-group">
         <label for="dominio">Dominio / Patente *</label>
         <input type="text" id="dominio" name="dominio" placeholder="AA123CD o ABC123" required>
       </div>
       <div class="form-group">
-        <label for="vtv">VTV / RTO (3 páginas completas) [PDF] *</label>
+        <label for="vtv">VTV / RTO Vigente [PDF] *</label>
         <input type="file" id="vtv" name="vtv" accept=".pdf,.png,.jpg" required>
       </div>
       <div class="form-group full-width">
-        <label for="poliza">Póliza de Seguro Automotor (Con cláusulas YPF) [PDF] *</label>
+        <label for="poliza">Póliza de Seguro Automotor [PDF] *</label>
         <input type="file" id="poliza" name="poliza" accept=".pdf,.png,.jpg" required>
       </div>
     </div>
 
-    <!-- 4. CHECKLIST TÉCNICO BATEAS / UNIDADES -->
-    <div class="section-title">4. Declaración de Cumplimiento Técnico (YPF)</div>
-    <p style="font-size: 13px; color: #64748b;">Marque los elementos con los que cuenta su unidad para la habilitación[cite: 1]:</p>
-    <div class="checkbox-grid">
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Recubrimiento antiadherente"> Recubrimiento antiadherente completo</div>
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Inclinometro"> Inclinómetro instalado</div>
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="2 Matafuegos 5kg"> 2 Matafuegos de 5 kg</div>
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Pala antichispa"> Pala anti-chispa (polipropileno)</div>
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Lanza de arrastre"> Lanza de arrastre</div>
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Sistema ADAS"> Sistema ADAS (Frenado/Colisión)</div>
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="Seguimiento Satelital"> Monitoreo / Seguimiento Satelital GPS</div>
-      <div class="checkbox-item"><input type="checkbox" name="reqTecnico" value="EPP Completo"> EPP Completo + Arnés doble cola (>1.8m)</div>
+    <!-- 4. CHECKLIST TÉCNICO YPF -->
+    <div id="sectionYpfTecnico">
+      <div class="section-title">4. Declaración de Cumplimiento Técnico (Operación YPF)</div>
+      <p style="font-size: 13px; color: #64748b;">Marque los elementos con los que cuenta su unidad[cite: 1]:</p>
+      <div class="checkbox-grid">
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Recubrimiento antiadherente"> Recubrimiento antiadherente completo</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Inclinometro"> Inclinómetro instalado</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="2 Matafuegos 5kg"> 2 Matafuegos de 5 kg</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Pala antichispa"> Pala anti-chispa (polipropileno)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Lanza de arrastre"> Lanza de arrastre</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Sistema ADAS"> Sistema ADAS (Frenado/Colisión)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="Seguimiento Satelital"> Monitoreo / Seguimiento Satelital GPS</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoYpf" value="EPP Completo"> EPP Completo + Arnés doble cola (>1.8m)</div>
+      </div>
+    </div>
+
+    <!-- 4. CHECKLIST TÉCNICO CAÑOS / TENARIS -->
+    <div id="sectionCanosTecnico" style="display: none;">
+      <div class="section-title">4. Declaración de Cumplimiento Técnico (Operación Caños / Tenaris)</div>
+      <p style="font-size: 13px; color: #64748b;">Marque las especificaciones de su unidad[cite: 2]:</p>
+      <div class="checkbox-grid">
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Semirremolque Escalable"> Semirremolque Escalable (Apto 32.5 Tn)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="5 Estacas laterales"> 5 Estacas laterales de seguridad (PRD 1737)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="4 Palones de madera"> 4 Palones de madera (150x150 mm)</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Fajas adicionales"> Fajas de amarre reglamentarias + 2 extras</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Lona vinilica impermeable"> Lona vinílica impermeable</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Sin cubiertas recapadas"> Sin cubiertas recapadas en dirección/tracción</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Monitoreo Satelital Active"> Monitoreo Satelital GPS Activo</div>
+        <div class="checkbox-item"><input type="checkbox" name="reqTecnicoCanos" value="Parapeto reforzado"> Parapeto/Antepecho a la altura de la cabina</div>
+      </div>
     </div>
 
     <button type="submit" class="btn-submit" id="btnEnviar">Enviar Postulación</button>
@@ -260,8 +290,20 @@
 </div>
 
 <script>
-  // Reemplazar con la URL desplegada de Google Apps Script Web App
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyHrA8pkpidVeMJLxaIqR2K7snGK1XfFCM3OasosWZRRvXLSX-p8CMV4FelSqB1yzMNAw/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0uKiXkC4Bzk5NaVzl0aw4LgDFQcmKg16RqqT_FT8b0qma1ylm_ZQv5bcyDKi0AF8jiw/exec";
+
+  function cambiarOperacion(valor) {
+    const sectionYpf = document.getElementById('sectionYpfTecnico');
+    const sectionCanos = document.getElementById('sectionCanosTecnico');
+    
+    if (valor === 'CANOS') {
+      sectionYpf.style.display = 'none';
+      sectionCanos.style.display = 'block';
+    } else {
+      sectionYpf.style.display = 'block';
+      sectionCanos.style.display = 'none';
+    }
+  }
 
   document.getElementById('transportistasForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -276,7 +318,6 @@
       const fileInputs = form.querySelectorAll('input[type="file"]');
       const attachments = [];
 
-      // Lectura de archivos en formato Base64
       for (const input of fileInputs) {
         if (input.files.length > 0) {
           const file = input.files[0];
@@ -285,15 +326,17 @@
             fieldName: input.name,
             fileName: file.name,
             mimeType: file.type,
-            content: base64.split(',')[1] // Remueve el prefijo data:...
+            content: base64.split(',')[1]
           });
         }
       }
 
-      // Obtener checklist de requisitos técnicos
-      const reqs = Array.from(form.querySelectorAll('input[name="reqTecnico"]:checked')).map(cb => cb.value);
+      const operacionSel = form.operacion.value;
+      const selectorCheckboxes = (operacionSel === 'CANOS') ? 'input[name="reqTecnicoCanos"]:checked' : 'input[name="reqTecnicoYpf"]:checked';
+      const reqs = Array.from(form.querySelectorAll(selectorCheckboxes)).map(cb => cb.value);
 
       const payload = {
+        operacion: operacionSel,
         razonSocial: form.razonSocial.value,
         cuit: form.cuit.value,
         telefono: form.telefono.value,
@@ -315,6 +358,7 @@
       if (result.status === 'success') {
         alert('Postulación enviada con éxito. Revisaremos la documentación a la brevedad.');
         form.reset();
+        cambiarOperacion('YPF');
       } else {
         alert('Ocurrió un error al procesar el formulario: ' + result.message);
       }
